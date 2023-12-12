@@ -9,6 +9,6 @@ define i32 @SINK(i32 %val) {
 
 define i32 @main() {
     %res = call i32 @SOURCE()
-    call i32 @SINK(i32 %ase)
+    call i32 @SINK(i32 %res)
     ret i32 0
 }

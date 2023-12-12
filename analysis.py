@@ -5,7 +5,7 @@ import re
 def parse_arguments():
     parser = argparse.ArgumentParser(description="LLVM-like code analysis")
     parser.add_argument("-i", "--input", required=True, help="Input LLVM-like file")
-    parser.add_argument("-o", "--output", required=True, help="Output directory for dot files")
+    parser.add_argument("-g", "--output", required=True, help="Output directory for dot files")
     return parser.parse_args()
 
 def parse_input_file(input_file):
@@ -189,8 +189,10 @@ def generate_dot_output(control_flow_graphs, output_directory):
             dot_output += node_definitions[node]
             if len(successors) == 0:
                 continue
+            count = 1
             for successor in successors:
-                dot_output += f"Node{node} -> Node{successor} [label=\"{successor}\"];\n"
+                dot_output += f"Node{node} -> Node{successor} [label=\"{count}\"];\n"
+                count += 1
 
 
 
@@ -198,7 +200,7 @@ def generate_dot_output(control_flow_graphs, output_directory):
 
     # Save DOT output to a file or print it
     if output_directory:
-        # print(dot_output)
+        print(dot_output)
         with open(output_directory, "w") as file:
             file.write(dot_output)
         print(f"DOT output saved to {output_directory}")
